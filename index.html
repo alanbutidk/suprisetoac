@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday Aarav 🎉</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: linear-gradient(to right, #1f1c2c, #928dab);
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+    }
+    h1 {
+      color: white;
+      font-size: 3rem;
+      text-align: center;
+      margin-top: 100px;
+      animation: popIn 1.2s ease-out forwards;
+    }
+    h2 {
+      color: #ffd700;
+      text-align: center;
+      margin-top: 20px;
+      font-size: 2rem;
+      animation: fadeSlideUp 1.6s ease-out forwards;
+    }
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: red;
+      animation: fall linear infinite;
+    }
+    @keyframes popIn {
+      0% {
+        transform: scale(0);
+        opacity: 0;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+    @keyframes fadeSlideUp {
+      0% {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    @keyframes fall {
+      0% {
+        transform: translateY(-100vh) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+    .start-button {
+      display: block;
+      margin: 40px auto;
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      background: #ff4e50;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      animation: fadeSlideUp 2s ease-out forwards;
+    }
+    .start-button:hover {
+      background: #f63e43;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎂 Happy Birthday 🎂</h1>
+  <h2>to the Legend: Aarav Chauhan!</h2>
+  <button class="start-button" onclick="startParty()">Start the Party 🎉</button>
+  <audio id="confettiMusic" src="confetti.mp3"></audio>
+
+  <script>
+    function createConfettiPiece() {
+      const confetti = document.createElement('div');
+      confetti.classList.add('confetti');
+      const colors = ['#ff0', '#f0f', '#0ff', '#0f0', '#f00', '#00f'];
+      confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+      confetti.style.left = Math.random() * window.innerWidth + 'px';
+      confetti.style.top = '-10px';
+      confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+      confetti.style.opacity = Math.random() + 0.5;
+      confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+      document.body.appendChild(confetti);
+      setTimeout(() => confetti.remove(), 5000);
+    }
+
+    function startParty() {
+      const music = document.getElementById("confettiMusic");
+      music.play();
+      setInterval(createConfettiPiece, 50);
+    }
+  </script>
+</body>
+</html>
