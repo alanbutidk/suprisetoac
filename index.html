@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy Birthday Aarav Chauhan 🎂</title>
+  <style>
+    * {margin: 0; padding: 0; box-sizing: border-box;}
+    body {
+      background: linear-gradient(to right, #1f1c2c, #928dab);
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+      height: 100vh;
+    }
+    h1 {
+      color: white;
+      font-size: 3rem;
+      text-align: center;
+      margin-top: 80px;
+      animation: popIn 1.2s ease-out forwards;
+    }
+    h2 {
+      color: #ffd700;
+      text-align: center;
+      margin-top: 15px;
+      font-size: 2rem;
+      animation: fadeSlideUp 1.6s ease-out forwards;
+    }
+    .btn {
+      display: block;
+      margin: 20px auto;
+      padding: 15px 30px;
+      font-size: 1rem;
+      background: #ff4e50;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      animation: fadeSlideUp 2s ease-out forwards;
+    }
+    .btn:hover {
+      background: #f63e43;
+    }
+    @keyframes popIn {
+      0% { transform: scale(0); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    @keyframes fadeSlideUp {
+      0% { opacity: 0; transform: translateY(50px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fall {
+      0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+    }
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: red;
+      animation: fall linear infinite;
+    }
+    .cake {
+      position: absolute;
+      bottom: 50px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 200px;
+      text-align: center;
+      animation: popIn 0.8s ease-out;
+    }
+    .cake img {
+      width: 100%;
+    }
+    .cake p {
+      color: white;
+      font-size: 1rem;
+      margin-top: 5px;
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 10px;
+      padding: 5px;
+    }
+    .balloon {
+        position: absolute;
+        width: 60px;
+        height: 130px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        animation: float 3s ease-in-out infinite;
+        cursor: grab;
+        z-index: 100;
+      }
+      .balloon-body {
+        width: 60px;
+        height: 80px;
+        background: red;
+        border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+      }
+      .balloon-string {
+        width: 2px;
+        height: 50px;
+        background: #444;
+        margin-top: -5px;
+      }
+      
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+  </style>
+</head>
+<body>
+  <h1>🎂 Happy Birthday 🎂</h1>
+  <h2>to the Legend: Aarav Chuhan!</h2>
+
+  <button class="btn" onclick="startParty()">Start the Party 🎉</button>
+  <button class="btn" onclick="spawnCake()">Bring Cake 🍰</button>
+  <button class="btn" onclick="spawnBalloon()">Spawn Balloon 🎈</button>
+
+  <audio id="confettiMusic" src="confetti.mp3"></audio>
+  <script>
+    function startParty() {
+      const music = document.getElementById("confettiMusic");
+      music.play();
+      setInterval(() => {
+        const confetti = document.createElement('div');
+        confetti.classList.add('confetti');
+        const colors = ['#ff0', '#f0f', '#0ff', '#0f0', '#f00', '#00f'];
+        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.left = Math.random() * window.innerWidth + 'px';
+        confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+        confetti.style.opacity = Math.random() + 0.5;
+        document.body.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 5000);
+      }, 50);
+    }
+  
+    function spawnCake() {
+      const cake = document.createElement('div');
+      cake.classList.add('cake');
+      cake.innerHTML = `
+        <img src="https://inbloombakery.com/wp-content/uploads/2022/04/chocolate-drip-cake-featured-image.jpg" alt="Cake" />
+        <p>Happy Birthday Aarav 🎉</p>
+      `;
+      document.body.appendChild(cake);
+      setTimeout(() => cake.remove(), 10000);
+    }
+  
+    function spawnBalloon() {
+      const balloonWrapper = document.createElement('div');
+      balloonWrapper.classList.add('balloon');
+      balloonWrapper.innerHTML = `
+        <div class="balloon-body"></div>
+        <div class="balloon-string"></div>
+      `;
+      balloonWrapper.style.left = Math.random() * (window.innerWidth - 60) + 'px';
+      balloonWrapper.style.top = Math.random() * (window.innerHeight - 100) + 'px';
+  
+      let offsetX, offsetY, dragging = false;
+  
+      function startDrag(e) {
+        dragging = true;
+        offsetX = (e.touches ? e.touches[0].clientX : e.clientX) - balloonWrapper.offsetLeft;
+        offsetY = (e.touches ? e.touches[0].clientY : e.clientY) - balloonWrapper.offsetTop;
+      }
+  
+      function moveDrag(e) {
+        if (!dragging) return;
+        e.preventDefault();
+        const x = (e.touches ? e.touches[0].clientX : e.clientX) - offsetX;
+        const y = (e.touches ? e.touches[0].clientY : e.clientY) - offsetY;
+        balloonWrapper.style.left = x + 'px';
+        balloonWrapper.style.top = y + 'px';
+      }
+  
+      function endDrag() {
+        dragging = false;
+      }
+  
+      balloonWrapper.addEventListener('mousedown', startDrag);
+      balloonWrapper.addEventListener('touchstart', startDrag);
+      window.addEventListener('mousemove', moveDrag);
+      window.addEventListener('touchmove', moveDrag, { passive: false });
+      window.addEventListener('mouseup', endDrag);
+      window.addEventListener('touchend', endDrag);
+  
+      document.body.appendChild(balloonWrapper);
+    }
+  </script>
+  
+</body>
+</html>
